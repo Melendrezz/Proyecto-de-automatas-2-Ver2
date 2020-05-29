@@ -6,7 +6,6 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.MutableAttributeSet;
-import javax.swing.text.PlainDocument;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
@@ -24,23 +23,11 @@ public class Documento extends DefaultStyledDocument{
         attr = cont.addAttribute(cont.getEmptySet(),StyleConstants.Foreground,r_PR);
         attrBlack = cont.addAttribute(cont.getEmptySet(), StyleConstants.Foreground, Color.BLACK);
         attrBlue = cont.addAttribute(cont.getEmptySet(), StyleConstants.Foreground, r_CAD);
-        //putProperty(PlainDocument.tabSizeAttribute, 1);
-        
 	}
 	
 	@Override
 	public void insertString(int arg0, String arg1, AttributeSet arg2) throws BadLocationException {
-		char car = arg1.charAt(arg1.length() - 1);
-		switch (car) {
-		case '{':
-			arg1 += "}";
-			break;
-		case '(':
-			arg1 += ")";
-			break;
-		}
 		super.insertString(arg0, arg1, arg2);
-		
 		algo();
 	}
 	
@@ -117,12 +104,10 @@ public class Documento extends DefaultStyledDocument{
 		oldString = currentString;
 	}
 	private boolean palabraRes(String palabra){
-		if( palabra.matches("(if|while|public|private|true|false|"
-				+ "class|boolean|int|static|double|void|float)"))
+		if( palabra.matches("(if|while|public|private|true|false|class|boolean|int|static|double|void)"))
 			return true;
 		return false;
 	}
-	
 	class coloreado{
 		int pos;
 		String palabra;
